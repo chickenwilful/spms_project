@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load transaction_template_tags %}
 {% block body %}
 
 <div class="row" style="background-color: wheat; padding-top: 20px">
@@ -11,6 +12,10 @@
 <div id="results" class="row" style="padding-top: 20px; padding-bottom: 50px">
     <div class="col-xs-2"></div>
     <div class="col-xs-8">
+    <div class="row" style="text-align: center; padding-bottom: 20px">
+        {{result_count}} results found. Displays at most 500 results.
+    </div>
+
     <table style="width:100%;" border="1">
         <tr>
             <td style="text-align: center">Name</td>
@@ -24,15 +29,15 @@
 
         </tr>
 
-    {% for transaction in transaction_list %}
+    {% for transaction in transactions %}
         <tr>
-            <td>{{transaction.name}}</td>
-            <td>{{transaction.address}}</td>
-            <td style="text-align: center">{{transaction.postal_code}}</td>
-            <td style="text-align: center">{{transaction.year}}</td>
-            <td style="text-align: center">{{transaction.month}}</td>
+            <td>{{transaction.name|refine}}</td>
+            <td>{{transaction.address|refine}}</td>
+            <td style="text-align: center">{{transaction.postal_code|refine}}</td>
+            <td style="text-align: center">{{transaction.year|refine}}</td>
+            <td style="text-align: center">{{transaction.month|refine}}</td>
             <td style="text-align: center">{{transaction.room_count}}</td>
-            <td style="text-align: center">{{transaction.area_sqm_min}}</td>
+            <td style="text-align: center">{{transaction|area_sqm_range}}</td>
             <td style="text-align: center">{{transaction.monthly_rent}}</td>
         </tr>
     {% endfor %}

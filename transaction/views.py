@@ -7,10 +7,15 @@ from transaction.models import Transaction
 
 
 def transaction_list(request):
+    MAX_LENGTH = 500
     if not request.POST or request.GET:
         form = FilterForm()
-        transactions = Transaction.objects.all()[:500]
-        return render(request, 'transaction_list.html', {'transaction_list': transactions,
+        transactions = Transaction.objects.all()
+        result_count = len(transactions)
+        if len(transactions) > MAX_LENGTH:
+            transactions = transactions[:MAX_LENGTH]
+        return render(request, 'transaction_list.html', {'transactions': transactions,
+                                                         'result_count': result_count,
                                                          'form': form,
                                                          'message': "Display the first 500 results"})
     else:
@@ -29,7 +34,11 @@ def transaction_list(request):
         if address != "":
             transactions = transactions.filter(address=address)
 
+        result_count = len(transactions)
         form = FilterForm(request.POST)
-        return render(request, 'transaction_list.html', {'transaction_list': transactions,
+        if len(transactions) > MAX_LENGTH:
+            transactions = transactions[:MAX_LENGTH]
+        return render(request, 'transaction_list.html', {'transactions': transactions,
                                                          'form': form,
+                                                         'result_count': result_count,
                                                          'message': "Display the first 500 results"})
