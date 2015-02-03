@@ -20,13 +20,17 @@ def transaction_list(request):
                                                          'message': "Display the first 500 results"})
     else:
         # Handle the form
+        type = request.POST['type']
         name = request.POST['name']
         postal_code = request.POST['postal_code']
         address = request.POST['address']
-        if name != "":
-            transactions = Transaction.objects.filter(name=name)
+
+        if type != 'a':
+            transactions = Transaction.objects.filter(type=type)
         else:
             transactions = Transaction.objects.all()
+        if name != "":
+            transactions = Transaction.objects.filter(name=name)
 
         if postal_code != "":
             transactions = transactions.filter(postal_code=postal_code)

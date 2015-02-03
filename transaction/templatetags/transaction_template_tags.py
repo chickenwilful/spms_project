@@ -4,7 +4,9 @@ register = template.Library()
 
 @register.filter(name="area_sqm_range")
 def area_sqm_range(transaction):
-    if transaction.area_sqm_min == transaction.area_sqm_max:
+    if transaction.area_sqm_min is None:
+        return "-"
+    elif transaction.area_sqm_min == transaction.area_sqm_max:
         return transaction.area_sqm_min
     elif transaction.area_sqm_max is None:
         return "> {0}".format(transaction.area_sqm_min)
@@ -18,3 +20,11 @@ def refine(string):
         return "-"
     else:
         return string
+
+
+@register.filter(name="actualType")
+def actualType(type):
+    if type == "h":
+        return "HDB"
+    else:
+        return "Condo"
