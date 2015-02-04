@@ -24,19 +24,24 @@ def transaction_list(request):
         name = request.POST['name']
         postal_code = request.POST['postal_code']
         address = request.POST['address']
+        room_count = request.POST['room_count']
 
         if type != 'a':
             transactions = Transaction.objects.filter(type=type)
         else:
             transactions = Transaction.objects.all()
+
         if name != "":
-            transactions = Transaction.objects.filter(name=name)
+            transactions = transactions.filter(name=name)
 
         if postal_code != "":
             transactions = transactions.filter(postal_code=postal_code)
 
         if address != "":
             transactions = transactions.filter(address=address)
+
+        if room_count != "":
+            transactions = transactions.filter(room_count=room_count)
 
         result_count = len(transactions)
         form = FilterForm(request.POST)

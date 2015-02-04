@@ -5,7 +5,7 @@ from django.db import models
 
 HOUSE_TYPE = (
     ('c', 'Condo'),
-    ('d', 'HDB'),
+    ('h', 'HDB'),
 )
 
 class Transaction(models.Model):
