@@ -25,7 +25,7 @@
             <td style="text-align: center">Year</td>
             <td style="text-align: center">Month</td>
             <td style="text-align: center">Number of Bedroom</td>
-            <td style="text-align: center">Size</td>
+            <td style="text-align: center">Size (sqft)</td>
             <td style="text-align: center">Monthly Price</td>
 
         </tr>
@@ -39,7 +39,7 @@
             <td style="text-align: center">{{transaction.year|refine}}</td>
             <td style="text-align: center">{{transaction.month|refine}}</td>
             <td style="text-align: center">{{transaction.room_count|refine}}</td>
-            <td style="text-align: center">{{transaction|area_sqm_range}}</td>
+            <td style="text-align: center">{{transaction|area_sqft_range}}</td>
             <td style="text-align: center">{{transaction.monthly_rent}}</td>
         </tr>
     {% endfor %}

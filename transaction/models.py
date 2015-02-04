@@ -19,6 +19,8 @@ class Transaction(models.Model):
     area_sqm_min = models.FloatField(null=True, blank=True)
     area_sqm_max = models.FloatField(null=True, blank=True)
     monthly_rent = models.FloatField(null=True, blank=True)
+    area_sqft_min = models.FloatField(null=True, blank=True)
+    area_sqft_max = models.FloatField(null=True, blank=True)
 
     def __unicode__(self):
         if self.name:
