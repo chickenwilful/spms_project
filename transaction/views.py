@@ -2,8 +2,14 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
+import re
 from transaction.forms import FilterForm
 from transaction.models import Transaction
+
+
+def camelcase(str):
+    new_str = re.sub(r'^\s+|\s+$|\s+(?=\s)', '', str)
+    return new_str.title()
 
 
 def transaction_list(request):
@@ -21,11 +27,13 @@ def transaction_list(request):
     else:
         # Handle the form
         type = request.POST['type']
-        name = request.POST['name']
+        name = camelcase(request.POST['name'])
         postal_code = request.POST['postal_code']
-        address = request.POST['address']
+        address = camelcase(request.POST['address'])
         room_count = request.POST['room_count']
 
+        # TODO: filter not case-sensitive
+        
         if type != 'a':
             transactions = Transaction.objects.filter(type=type)
         else:
@@ -40,7 +48,9 @@ def transaction_list(request):
         if address != "":
             transactions = transactions.filter(address=address)
 
-        if room_count != "":
+        if room_count == "u":
+            transactions = transactions.filter(room_count=None)
+        elif room_count != "":
             transactions = transactions.filter(room_count=room_count)
 
         result_count = len(transactions)

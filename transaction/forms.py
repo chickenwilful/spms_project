@@ -6,7 +6,7 @@ HOUSE_TYPE_CHOICES = (
     ('c', 'Condo'),
 )
 
-ROOM_CHOICES = [('', 'All')] + [(i, i) for i in range(1, 9)]
+ROOM_CHOICES = [('', 'All')] + [(i, i) for i in range(1, 9)] + [('u', 'Unknown')]
 
 
 class FilterForm(forms.Form):
