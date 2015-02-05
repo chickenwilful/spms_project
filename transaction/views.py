@@ -34,7 +34,7 @@ def transaction_list(request):
 
         # TODO: filter not case-sensitive
         
-        if type != 'a':
+        if type != '':
             transactions = Transaction.objects.filter(type=type)
         else:
             transactions = Transaction.objects.all()
