@@ -17,15 +17,23 @@ def chart(request):
     return render(request, 'chart.html')
 
 
-def chart_retrieve(request, origin_transactions):
+def chart_retrieve(request, transactions):
     chart = {}
-    for year in range(2011, 2016):
-        transactions = origin_transactions.filter(year=year)
+
+    cnt = [[0 for month in range(0, 13)] for year in range(0, 2016)]
+    amt = [[0 for month in range(0, 13)] for year in range(0, 2016)]
+    for transaction in transactions:
+        if transaction.year and transaction.month and transaction.monthly_rent:
+            year, month = transaction.year, transaction.month
+            cnt[year][month] += 1
+            amt[year][month] += transaction.monthly_rent
+
+    for year in range(2010, 2016):
         chart[year] = []
         for month in range(1, 13):
-            month_transactions = transactions.filter(month=month).filter(monthly_rent__isnull=False)
-            if len(month_transactions) > 0:
-                chart[year].append(round(sum(trans.monthly_rent for trans in month_transactions) / len(month_transactions)))
+            print cnt[year][month], amt[year][month]
+            if cnt[year][month] > 0:
+                chart[year].append(round(amt[year][month] / cnt[year][month]))
             else:
                 chart[year].append(0)
     return chart
