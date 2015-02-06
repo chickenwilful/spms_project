@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from json_utils import json_success
 
 # Create your views here.
 import re
@@ -12,18 +13,39 @@ def camelcase(str):
     return new_str.title()
 
 
+def chart(request):
+    return render(request, 'chart.html')
+
+
+def chart_retrieve(request, origin_transactions):
+    chart = {}
+    for year in range(2011, 2016):
+        transactions = origin_transactions.filter(year=year)
+        chart[year] = []
+        for month in range(1, 13):
+            month_transactions = transactions.filter(month=month).filter(monthly_rent__isnull=False)
+            if len(month_transactions) > 0:
+                chart[year].append(round(sum(trans.monthly_rent for trans in month_transactions) / len(month_transactions)))
+            else:
+                chart[year].append(0)
+    return chart
+
+
 def transaction_list(request):
-    MAX_LENGTH = 500
+    MAX_LENGTH = 200
     if not request.POST or request.GET:
         form = FilterForm()
         transactions = Transaction.objects.all()
         result_count = len(transactions)
+        chart = chart_retrieve(request, transactions)
+
         if len(transactions) > MAX_LENGTH:
             transactions = transactions[:MAX_LENGTH]
+
         return render(request, 'transaction_list.html', {'transactions': transactions,
                                                          'result_count': result_count,
-                                                         'form': form,
-                                                         'message': "Display the first 500 results"})
+                                                         'chart': chart,
+                                                         'form': form})
     else:
         # Handle the form
         type = request.POST['type']
@@ -32,8 +54,6 @@ def transaction_list(request):
         address = camelcase(request.POST['address'])
         room_count = request.POST['room_count']
 
-        # TODO: filter not case-sensitive
-        
         if type != '':
             transactions = Transaction.objects.filter(type=type)
         else:
@@ -55,9 +75,10 @@ def transaction_list(request):
 
         result_count = len(transactions)
         form = FilterForm(request.POST)
+        chart = chart_retrieve(request, transactions)
         if len(transactions) > MAX_LENGTH:
             transactions = transactions[:MAX_LENGTH]
         return render(request, 'transaction_list.html', {'transactions': transactions,
                                                          'form': form,
-                                                         'result_count': result_count,
-                                                         'message': "Display the first 500 results"})
+                                                         'chart': chart,
+                                                         'result_count': result_count})

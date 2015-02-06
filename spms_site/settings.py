@@ -38,6 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'transaction',
     'bootstrap3',
+    'json_utils',
+    'crossdomainxhr',
+    'chartit',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -48,6 +51,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'crossdomainxhr.XsSharing',
 )
 
 ROOT_URLCONF = 'spms_site.urls'

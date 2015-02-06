@@ -1,0 +1,61 @@
+{% load staticfiles %}
+
+<script src="{% static 'js/highcharts.js' %}"></script>
+<script src="{% static 'js/exporting.js' %}"></script>
+<script src="{% static 'js/grid_theme.js' %}"></script>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#container').highcharts({
+            title: {
+                text: 'Average Monthly Rental Price',
+                x: -20 //center
+            },
+            subtitle: {
+                text: 'Source: Internal database',
+                x: -20
+            },
+            xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            },
+            yAxis: {
+                title: {
+                    text: 'Average Price (SGD)'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: ' SGD'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: '2011',
+                data: {{chart.2011}}
+            }, {
+                name: '2012',
+                data: {{chart.2012}}
+            }, {
+                name: '2013',
+                data: {{chart.2013}}
+            }, {
+                name: '2014',
+                data: {{chart.2014}}
+            },{
+                name: '2015',
+                data: {{chart.2015}}
+            }]
+        });
+    });    
+</script>
+

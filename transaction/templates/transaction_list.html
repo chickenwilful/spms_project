@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load transaction_template_tags %}
+
 {% block body %}
 
 <div class="row" style="background-color: wheat; padding-top: 20px">
@@ -9,11 +10,15 @@
     </div>
 </div>
 
+{% block chart %}
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 80"></div>
+{% endblock chart %}
+
 <div id="results" class="row" style="padding-top: 20px; padding-bottom: 50px">
     <div class="col-xs-2"></div>
     <div class="col-xs-8">
     <div class="row" style="text-align: center; padding-bottom: 20px">
-        {{result_count}} results found. Displays at most 500 results.
+        {{result_count}} results found. Displays at most 200 results.
     </div>
 
     <table style="width:100%;" border="1">
@@ -47,5 +52,9 @@
     </div>
 </div>
 {% endblock body %}
+
+{% block extra-js %}
+    {% include 'chart.html' %}
+{% endblock extra-js %}
 
 
