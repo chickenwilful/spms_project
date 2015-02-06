@@ -40,7 +40,6 @@ INSTALLED_APPS = (
     'bootstrap3',
     'json_utils',
     'crossdomainxhr',
-    'chartit',
 )
 
 MIDDLEWARE_CLASSES = (
