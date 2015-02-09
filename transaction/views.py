@@ -28,14 +28,17 @@ def chart_retrieve(request, transactions):
             cnt[year][month] += 1
             amt[year][month] += transaction.monthly_rent
 
-    for year in range(2010, 2016):
-        chart[year] = []
+    chart['price'] = []
+    chart['count'] = []
+
+    for year in range(2011, 2016):
         for month in range(1, 13):
-            print cnt[year][month], amt[year][month]
-            if cnt[year][month] > 0:
-                chart[year].append(round(amt[year][month] / cnt[year][month]))
-            else:
-                chart[year].append(0)
+            if (year > 2011 or month == 12) and (year < 2015 or month == 1):
+                if cnt[year][month] > 0:
+                    chart['price'].append(round(amt[year][month] / cnt[year][month]))
+                else:
+                    chart['price'].append(0)
+                chart['count'].append(cnt[year][month])
     return chart
 
 

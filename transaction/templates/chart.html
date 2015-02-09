@@ -6,54 +6,93 @@
 
 
 <script type="text/javascript">
+
+    function pad(n, width, z) {
+      z = z || '0';
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
+
+    category_list = [];
+    for(var year = 2011; year < 2016; year++)
+        for(var month=1; month < 13; month++) 
+            if ((year > 2011 || month == 12) && (year < 2015 || month == 1))    
+                category_list.push(year + '.' + pad(month, 2));
+    
+    console.log(category_list)
     $(function () {
         $('#container').highcharts({
+            chart: {
+                zoomType: 'xy'
+            },
             title: {
-                text: 'Average Monthly Rental Price',
-                x: -20 //center
+                text: 'Average Monthly Rental Price in Singapore'
             },
             subtitle: {
-                text: 'Source: Internal database',
-                x: -20
+                text: 'Source: Internal source'
             },
-            xAxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-            },
-            yAxis: {
-                title: {
-                    text: 'Average Price (SGD)'
+            xAxis: [{
+                categories: category_list,
+            }],
+            yAxis: [{ // Primary yAxis
+                labels: {
+                    format: '{value} SGD',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
                 },
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
-            },
+                title: {
+                    text: 'Average monthly rent price',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                },
+                opposite: true,
+
+            }, {
+                gridLineWidth: 0,
+                title: {
+                    text: 'Record count',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                labels: {
+                    format: '{value} records',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                }
+
+            }],
             tooltip: {
-                valueSuffix: ' SGD'
+                shared: true
             },
             legend: {
                 layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
+                align: 'left',
+                x: 120,
+                verticalAlign: 'top',
+                y: 80,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
             },
             series: [{
-                name: '2011',
-                data: {{chart.2011}}
-            }, {
-                name: '2012',
-                data: {{chart.2012}}
-            }, {
-                name: '2013',
-                data: {{chart.2013}}
-            }, {
-                name: '2014',
-                data: {{chart.2014}}
-            },{
-                name: '2015',
-                data: {{chart.2015}}
+                name: 'Record count',
+                type: 'column',
+                yAxis: 1,
+                data: {{chart.count}},
+                tooltip: {
+                    valueSuffix: ''
+                }
+
+            },  {
+                name: 'Average price',
+                type: 'spline',
+                data: {{chart.price}},
+                tooltip: {
+                    valueSuffix: ' SGD'
+                }
             }]
         });
     });    
