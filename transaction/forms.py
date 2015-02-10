@@ -15,3 +15,5 @@ class FilterForm(forms.Form):
     postal_code = forms.CharField(label="PostalCode", widget=forms.TextInput(), required=False)
     address = forms.CharField(label="Address", widget=forms.TextInput(), required=False)
     room_count = forms.ChoiceField(label="No.Bedroom", choices=ROOM_CHOICES, required=False)
+
+

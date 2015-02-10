@@ -13,10 +13,6 @@ def camelcase(str):
     return new_str.title()
 
 
-def chart(request):
-    return render(request, 'chart.html')
-
-
 def chart_retrieve(request, transactions):
     chart = {}
 
@@ -42,7 +38,7 @@ def chart_retrieve(request, transactions):
     return chart
 
 
-def transaction_list(request):
+def transaction_list(request, estimate=False):
     MAX_LENGTH = 200
     if not request.POST or request.GET:
         form = FilterForm()
@@ -73,9 +69,6 @@ def transaction_list(request):
         if name != "":
             transactions = transactions.filter(name=name)
 
-        if postal_code != "":
-            transactions = transactions.filter(postal_code=postal_code)
-
         if address != "":
             transactions = transactions.filter(address=address)
 
@@ -83,6 +76,13 @@ def transaction_list(request):
             transactions = transactions.filter(room_count=None)
         elif room_count != "":
             transactions = transactions.filter(room_count=room_count)
+
+        if postal_code != "":
+            if not estimate:
+                transactions = transactions.filter(postal_code=postal_code)
+            else:
+                postal_code = postal_code[:len(postal_code)-1]
+                transactions = [trans for trans in transactions if trans.postal_code and trans.postal_code.startswith(postal_code)]
 
         result_count = len(transactions)
         form = FilterForm(request.POST)
@@ -93,3 +93,7 @@ def transaction_list(request):
                                                          'form': form,
                                                          'chart': chart,
                                                          'result_count': result_count})
+
+
+def transaction_list_estimate(request):
+    return transaction_list(request, estimate=True)
