@@ -31,13 +31,13 @@ def chart_retrieve(request, transactions):
     chart['price'] = []
     chart['count'] = []
 
-    for year in range(2011, 2016):
+    for year in range(2012, 2016):
         for month in range(1, 13):
-            if (year > 2011 or month == 12) and (year < 2015 or month == 1):
+            if year < 2015 or month == 1:
                 if cnt[year][month] > 0:
                     chart['price'].append(round(amt[year][month] / cnt[year][month]))
                 else:
-                    chart['price'].append(0)
+                    chart['price'].append(None)
                 chart['count'].append(cnt[year][month])
     return chart
 

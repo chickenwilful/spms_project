@@ -14,16 +14,34 @@
     }
 
     category_list = [];
-    for(var year = 2011; year < 2016; year++)
+    for(var year = 2012; year < 2016; year++)
         for(var month=1; month < 13; month++) 
-            if ((year > 2011 || month == 12) && (year < 2015 || month == 1))    
+            if (year < 2015 || month == 1)
                 category_list.push(year + '.' + pad(month, 2));
+
+    jschart = {};
+    jschart['price'] = [];
+
+    {% for val in chart.price %}
+        {% if val %}
+            jschart['price'].push({{val}})
+        {% else %}
+            jschart['price'].push(null)
+        {% endif %}
+    {% endfor %}
+
+    console.log(jschart['price']);
     
     console.log(category_list)
     $(function () {
         $('#container').highcharts({
             chart: {
-                zoomType: 'xy'
+                zoomType: 'xy',
+            },
+            plotOptions: {
+                series: {
+                    connectNulls: true
+                }
             },
             title: {
                 text: 'Average Monthly Rental Price in Singapore'
@@ -32,7 +50,7 @@
                 text: 'Source: Internal source'
             },
             xAxis: [{
-                categories: category_list,
+                categories: category_list
             }],
             yAxis: [{ // Primary yAxis
                 labels: {
@@ -42,15 +60,12 @@
                     }
                 },
                 title: {
-                    text: 'Average monthly rent price',
+                    text: 'Average price',
                     style: {
                         color: Highcharts.getOptions().colors[1]
                     }
-                },
-                opposite: true,
-
-            }, {
-                gridLineWidth: 0,
+                }
+            }, { // Secondary yAxis
                 title: {
                     text: 'Record count',
                     style: {
@@ -58,12 +73,12 @@
                     }
                 },
                 labels: {
-                    format: '{value} records',
+                    format: '{value} ',
                     style: {
                         color: Highcharts.getOptions().colors[0]
                     }
-                }
-
+                },
+                opposite: true
             }],
             tooltip: {
                 shared: true
@@ -71,9 +86,7 @@
             legend: {
                 layout: 'vertical',
                 align: 'left',
-                x: 120,
                 verticalAlign: 'top',
-                y: 80,
                 floating: true,
                 backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
             },
@@ -86,15 +99,15 @@
                     valueSuffix: ''
                 }
 
-            },  {
+            }, {
                 name: 'Average price',
                 type: 'spline',
-                data: {{chart.price}},
+                data: jschart['price'],
                 tooltip: {
                     valueSuffix: ' SGD'
                 }
             }]
         });
-    });    
+    });
 </script>
 
