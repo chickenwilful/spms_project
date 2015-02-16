@@ -8,6 +8,7 @@ HOUSE_TYPE = (
     ('h', 'HDB'),
 )
 
+
 class Transaction(models.Model):
     type = models.CharField(max_length=1, choices=HOUSE_TYPE, default='h')
     name = models.CharField(max_length=200, null=True, blank=True)
@@ -21,6 +22,8 @@ class Transaction(models.Model):
     monthly_rent = models.FloatField(null=True, blank=True)
     area_sqft_min = models.FloatField(null=True, blank=True)
     area_sqft_max = models.FloatField(null=True, blank=True)
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
 
     def __unicode__(self):
         if self.name:

@@ -1,11 +1,43 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from json_utils import json_success
 
 # Create your views here.
 import re
 from transaction.forms import FilterForm
 from transaction.models import Transaction
+
+
+def misc(request):
+    return HttpResponse("hehe")
+
+
+def map(request, template='map.html'):
+
+    transactions = Transaction.objects.filter(latitude__isnull=True)
+
+    address_list = [trans.address for trans in transactions]
+    address_list = set(address_list)
+    return render(request, template, {'count': len(address_list),
+                                      'address_list': address_list})
+
+
+def coordinate(request):
+    if request.GET:
+        addr = request.GET['addr']
+        lat = request.GET['lat']
+        lng = request.GET['lng']
+        print addr
+        transactions = Transaction.objects.filter(address=addr)
+        print len(transactions)
+
+        for trans in transactions:
+            trans.latitude = lat
+            trans.longitude = lng
+            trans.save()
+        return HttpResponse("done")
+    else:
+        return HttpResponse("not done")
 
 
 def camelcase(str):
