@@ -1,4 +1,6 @@
+import json
 from django import template
+import re
 
 register = template.Library()
 
@@ -40,3 +42,22 @@ def actualType(type):
         return "HDB"
     else:
         return "Condo"
+
+
+from django.core.serializers import serialize
+from django.db.models.query import QuerySet
+from django.utils.safestring import mark_safe
+
+
+def jsonify(object):
+    if isinstance(object, QuerySet):
+        return mark_safe(serialize('json', object))
+    return mark_safe(json.dumps(object))
+
+register.filter('jsonify', jsonify)
+jsonify.is_safe = True
+
+
+def camelcase(str):
+    new_str = re.sub(r'^\s+|\s+$|\s+(?=\s)', '', str)
+    return new_str.title()

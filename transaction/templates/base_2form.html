@@ -2,7 +2,12 @@
 
 {% block formbody %}
 <form role="form" class="form-horizontal" method="post">
-    {% bootstrap_form form layout="horizontal" %}
+    <div class="col-lg-6">
+    {% bootstrap_form form1 layout="horizontal" %}
+    </div>
+    <div class="col-lg-6">
+    {% bootstrap_form form2 layout="horizontal" %}
+    </div>
     {% csrf_token %}
     {% buttons submit="OK" layout="horizontal"%}
         <button class="btn" onclick='$(this).closest("form").find("input[type=text], select, textarea").val("");'>Reset</button>

@@ -1,131 +1,102 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
-from json_utils import json_success
-
-# Create your views here.
-import re
-from transaction.forms import FilterForm
+from django.shortcuts import render
+from transaction.charts import Chart
+from transaction.forms import FilterForm, ChartFilterForm
 from transaction.models import Transaction
+import logging
+from transaction.templatetags.transaction_template_tags import camelcase
 
-
-def misc(request):
-    return HttpResponse("hehe")
+logger = logging.getLogger(__name__)
 
 
 def map(request, template='map.html'):
-
     transactions = Transaction.objects.filter(latitude__isnull=True)
-
-    address_list = [trans.address for trans in transactions]
-    address_list = set(address_list)
+    address_list = set([trans.address for trans in transactions])
     return render(request, template, {'count': len(address_list),
                                       'address_list': address_list})
 
 
 def coordinate(request):
+    """
+    View to get coordinate of all transactions' addresses
+    """
     if request.GET:
-        addr = request.GET['addr']
-        lat = request.GET['lat']
-        lng = request.GET['lng']
-        print addr
+        addr, lat, lng = request.GET['addr'], request.GET['lat'], request.GET['lng']
         transactions = Transaction.objects.filter(address=addr)
-        print len(transactions)
-
         for trans in transactions:
-            trans.latitude = lat
-            trans.longitude = lng
+            trans.latitude, trans.longitude = lat, lng
             trans.save()
-        return HttpResponse("done")
+        return HttpResponse("Transactions updated!")
     else:
-        return HttpResponse("not done")
+        return HttpResponse("Not GET request")
 
 
-def camelcase(str):
-    new_str = re.sub(r'^\s+|\s+$|\s+(?=\s)', '', str)
-    return new_str.title()
+def transaction_list(request, template="transaction_list.html"):
+    """
+    View to display transaction list and related charts.
+    """
+    MAX_LENGTH = 50
 
-
-def chart_retrieve(request, transactions):
-    chart = {}
-
-    cnt = [[0 for month in range(0, 13)] for year in range(0, 2016)]
-    amt = [[0 for month in range(0, 13)] for year in range(0, 2016)]
-    for transaction in transactions:
-        if transaction.year and transaction.month and transaction.monthly_rent:
-            year, month = transaction.year, transaction.month
-            cnt[year][month] += 1
-            amt[year][month] += transaction.monthly_rent
-
-    chart['price'] = []
-    chart['count'] = []
-
-    for year in range(2012, 2016):
-        for month in range(1, 13):
-            if year < 2015 or month == 1:
-                if cnt[year][month] > 0:
-                    chart['price'].append(round(amt[year][month] / cnt[year][month]))
-                else:
-                    chart['price'].append(None)
-                chart['count'].append(cnt[year][month])
-    return chart
-
-
-def transaction_list(request, estimate=False):
-    MAX_LENGTH = 200
     if not request.POST or request.GET:
-        form = FilterForm()
         transactions = Transaction.objects.all()
-        result_count = len(transactions)
-        chart = chart_retrieve(request, transactions)
 
+        chart = {
+            'by_itself': Chart.chart_retrieve(transactions)
+        }
+
+        result_count = len(transactions)
         if len(transactions) > MAX_LENGTH:
             transactions = transactions[:MAX_LENGTH]
 
-        return render(request, 'transaction_list.html', {'transactions': transactions,
-                                                         'result_count': result_count,
-                                                         'chart': chart,
-                                                         'form': form})
+        return render(request, template, {'transactions': transactions,
+                                          'result_count': result_count,
+                                          'chart': chart,
+                                          'filter_form': FilterForm(),
+                                          'chart_form': ChartFilterForm()})
     else:
-        # Handle the form
+        # Handle the POST request
         type = request.POST['type']
         name = camelcase(request.POST['name'])
         postal_code = request.POST['postal_code']
         address = camelcase(request.POST['address'])
         room_count = request.POST['room_count']
 
-        if type != '':
-            transactions = Transaction.objects.filter(type=type)
+        transactions = Transaction.get_transactions(type=type, room_count=room_count)
+
+        # Refine request: name <--> address <--> postal_code
+        temp = Transaction.get_transactions(transactions, name=name, postal_code=postal_code, address=address)
+        if address == "":
+            address = Transaction.get_address(name=name, postal_code=postal_code)
+        if postal_code == "":
+            postal_code = Transaction.get_postal_code(name=name, address=address)
+
+        print "name = {0}, address = {1}, postal_code = {2}".format(name, address, postal_code)
+        chart = {}
+        # Handle chart series
+        chart_series = request.POST.getlist('series')
+        if Chart.ITSELF in chart_series:
+            chart['by_itself'] = Chart.chart_retrieve(temp)
+        if Chart.NEIGHBOR_POSTALCODE in chart_series:
+            chart['by_postalcode'] = Chart.chart_by_neighbor_postal_code(transactions, postal_code)
+        if Chart.NEIGHBOR_ADDRESS in chart_series:
+            chart['by_address'] = Chart.chart_by_neighbor_address(transactions, address)
+
+        # Handle displayed list
+        display_list = request.POST['list']
+        if display_list == Chart.ITSELF:
+            transactions = temp
+        elif display_list == Chart.NEIGHBOR_POSTALCODE:
+            transactions = Chart.get_transactions_by_neighbor_postal_code(transactions, postal_code)
         else:
-            transactions = Transaction.objects.all()
-
-        if name != "":
-            transactions = transactions.filter(name=name)
-
-        if address != "":
-            transactions = transactions.filter(address=address)
-
-        if room_count == "u":
-            transactions = transactions.filter(room_count=None)
-        elif room_count != "":
-            transactions = transactions.filter(room_count=room_count)
-
-        if postal_code != "":
-            if not estimate:
-                transactions = transactions.filter(postal_code=postal_code)
-            else:
-                postal_code = postal_code[:len(postal_code)-1]
-                transactions = [trans for trans in transactions if trans.postal_code and trans.postal_code.startswith(postal_code)]
+            transactions = Chart.get_transactions_by_neighbor_address(transactions, address)
+            transactions.extend(Chart.get_transactions_by_address(transactions))
 
         result_count = len(transactions)
-        form = FilterForm(request.POST)
-        chart = chart_retrieve(request, transactions)
         if len(transactions) > MAX_LENGTH:
             transactions = transactions[:MAX_LENGTH]
-        return render(request, 'transaction_list.html', {'transactions': transactions,
-                                                         'form': form,
-                                                         'chart': chart,
-                                                         'result_count': result_count})
 
-
-def transaction_list_estimate(request):
-    return transaction_list(request, estimate=True)
+        return render(request, template, {'transactions': transactions,
+                                          'result_count': result_count,
+                                          'filter_form': FilterForm(request.POST),
+                                          'chart_form': ChartFilterForm(request.POST),
+                                          'chart': chart})

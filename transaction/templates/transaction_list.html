@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 {% load transaction_template_tags %}
+{% load bootstrap3 %}
 
 {% block body %}
 
 <div class="row" style="background-color: wheat; padding-top: 20px">
-    <div class="col-lg-2"></div>
-    <div class="col-lg-10">
-    {% include 'base_form.html' %}
-    </div>
+    {% include 'base_2form.html' with form1=filter_form form2=chart_form %}
 </div>
 
+{% if chart %}
 {% block chart %}
     <div id="container" style="min-width: 310px; height: 400px; margin: 0 80"></div>
 {% endblock chart %}
+{% endif %}
 
 <div id="results" class="row" style="padding-top: 20px; padding-bottom: 50px">
     <div class="col-xs-2"></div>
     <div class="col-xs-8">
     <div class="row" style="text-align: center; padding-bottom: 20px">
-        {{result_count}} results found. Displays at most 100 results.
+        {{result_count}} results found. Displays at most 50 results.
     </div>
 
     <table style="width:100%;" border="1">
@@ -32,6 +32,8 @@
             <td style="text-align: center">Number of Bedroom</td>
             <td style="text-align: center">Size (sqft)</td>
             <td style="text-align: center">Monthly Price</td>
+            <td style="text-align: center">Latitude</td>
+            <td style="text-align: center">Longitude</td>
 
         </tr>
 
@@ -46,6 +48,8 @@
             <td style="text-align: center">{{transaction.room_count|refine}}</td>
             <td style="text-align: center">{{transaction|area_sqft_range}}</td>
             <td style="text-align: center">{{transaction.monthly_rent}}</td>
+            <td style="text-align: center">{{transaction.latitude|floatformat:3}}</td>
+            <td style="text-align: center">{{transaction.longitude|floatformat:3}}</td>
         </tr>
     {% endfor %}
     </table>

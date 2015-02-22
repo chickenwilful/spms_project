@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+from transaction.templatetags.transaction_template_tags import camelcase
 
 
 HOUSE_TYPE = (
@@ -45,3 +46,58 @@ class Transaction(models.Model):
             self.monthly_rent,
             self.type
         )
+
+
+    @staticmethod
+    def get_transactions(transactions=None, type="", postal_code="", name="", address="", room_count=""):
+
+        if transactions is None:
+            transactions = Transaction.objects.all()
+
+        if type != '':
+            transactions = Transaction.objects.filter(type=type)
+
+        if name != "":
+            transactions = transactions.filter(name=name)
+
+        if address != "":
+            transactions = transactions.filter(address=address)
+
+        if room_count == "u":
+            transactions = transactions.filter(room_count=None)
+        elif room_count != "":
+            transactions = transactions.filter(room_count=room_count)
+
+        if postal_code != "":
+            transactions = transactions.filter(postal_code=postal_code)
+
+        return transactions
+
+    @staticmethod
+    def get_address(name="", postal_code=""):
+        address = ""
+        if address == "" and name != "":
+            transactions = Transaction.objects.filter(name=name)
+            if transactions:
+                address = transactions[0].address
+
+        if address == "" and postal_code != "":
+            transactions = Transaction.objects.filter(postal_code=postal_code)
+            if transactions:
+                address = transactions[0].address
+        return address
+
+    @staticmethod
+    def get_postal_code(name="", address=""):
+        postal_code = ""
+        if postal_code == "" and name != "":
+            transactions = Transaction.objects.filter(name=name)
+            if transactions:
+                postal_code = transactions[0].postal_code
+
+        if postal_code == "" and address != "":
+            transactions = Transaction.objects.filter(address=address)
+            if transactions:
+                postal_code = transactions[0].postal_code
+        return postal_code
+

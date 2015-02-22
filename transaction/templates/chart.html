@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load transaction_template_tags %}
 
 <script src="{% static 'js/highcharts.js' %}"></script>
 <script src="{% static 'js/exporting.js' %}"></script>
@@ -19,20 +20,9 @@
             if (year < 2015 || month == 1)
                 category_list.push(year + '.' + pad(month, 2));
 
-    jschart = {};
-    jschart['price'] = [];
+    jschart = {{chart|jsonify}}
 
-    {% for val in chart.price %}
-        {% if val %}
-            jschart['price'].push({{val}})
-        {% else %}
-            jschart['price'].push(null)
-        {% endif %}
-    {% endfor %}
-
-    console.log(jschart['price']);
-    
-    console.log(category_list)
+    console.log(jschart)
     $(function () {
         $('#container').highcharts({
             chart: {
@@ -65,48 +55,68 @@
                         color: Highcharts.getOptions().colors[1]
                     }
                 }
-            }, { // Secondary yAxis
-                title: {
-                    text: 'Record count',
-                    style: {
-                        color: Highcharts.getOptions().colors[0]
-                    }
-                },
-                labels: {
-                    format: '{value} ',
-                    style: {
-                        color: Highcharts.getOptions().colors[0]
-                    }
-                },
-                opposite: true
-            }],
+            }
+//                ,{ // Secondary yAxis
+//                title: {
+//                    text: 'Record count',
+//                    style: {
+//                        color: Highcharts.getOptions().colors[0]
+//                    }
+//                },
+//                labels: {
+//                    format: '{value} ',
+//                    style: {
+//                        color: Highcharts.getOptions().colors[0]
+//                    }
+//                },
+//                opposite: true
+//            }
+             ],
             tooltip: {
                 shared: true
             },
             legend: {
                 layout: 'vertical',
-                align: 'left',
+                align: 'right',
+                y: 20,
                 verticalAlign: 'top',
+                borderWidth: 0,
                 floating: true,
                 backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
             },
-            series: [{
-                name: 'Record count',
-                type: 'column',
-                yAxis: 1,
-                data: {{chart.count}},
-                tooltip: {
-                    valueSuffix: ''
-                }
-
-            }, {
+            series: [
+//                {
+//                name: 'Record count',
+//                type: 'column',
+//                yAxis: 1,
+//                data: {{chart.count}},
+//                tooltip: {
+//                    valueSuffix: ''
+//                }
+//
+//            },
+                {% if chart.by_itself %}{
                 name: 'Average price',
                 type: 'spline',
-                data: jschart['price'],
+                data: jschart['by_itself']['price'],
                 tooltip: {
                     valueSuffix: ' SGD'
                 }
-            }]
+            },{% endif %} {% if chart.by_address %}{
+                name: 'Neighbor Address',
+                type: 'spline',
+                data: jschart['by_address']['price'],
+                tooltip: {
+                    valueSuffix: ' SGD'
+                }
+            }, {% endif %} {% if chart.by_postalcode %}{
+                name: 'Neighbor Postalcode',
+                type: 'spline',
+                data: jschart['by_postalcode']['price'],
+                tooltip: {
+                    valueSuffix: ' SGD'
+                }
+            } {% endif %}]
         });
     });
 </script>
