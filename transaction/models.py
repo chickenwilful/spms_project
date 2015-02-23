@@ -75,29 +75,25 @@ class Transaction(models.Model):
 
     @staticmethod
     def get_address(name="", postal_code=""):
-        address = ""
-        if address == "" and name != "":
-            transactions = Transaction.objects.filter(name=name)
-            if transactions:
-                address = transactions[0].address
-
-        if address == "" and postal_code != "":
-            transactions = Transaction.objects.filter(postal_code=postal_code)
-            if transactions:
-                address = transactions[0].address
+        address = None
+        transactions = Transaction.objects.all()
+        if name and name != "":
+            transactions = transactions.filter(name=name)
+        if postal_code and postal_code != "":
+            transactions = transactions.filter(postal_code=postal_code)
+        if transactions:
+            address = transactions[0].address
         return address
 
     @staticmethod
     def get_postal_code(name="", address=""):
-        postal_code = ""
-        if postal_code == "" and name != "":
-            transactions = Transaction.objects.filter(name=name)
-            if transactions:
-                postal_code = transactions[0].postal_code
-
-        if postal_code == "" and address != "":
-            transactions = Transaction.objects.filter(address=address)
-            if transactions:
-                postal_code = transactions[0].postal_code
+        postal_code = None
+        transactions = Transaction.objects.all()
+        if name and name != "":
+            transactions = transactions.filter(name=name)
+        if address and address != "":
+            transactions = transactions.filter(address=address)
+        if transactions:
+            postal_code = transactions[0].postal_code
         return postal_code
 

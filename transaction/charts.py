@@ -70,15 +70,15 @@ class Chart(object):
 
     @staticmethod
     def get_transactions_by_neighbor_postal_code(transactions, postal_code):
-        if postal_code == "":
+        if not postal_code or postal_code == "":
             return []
-        postal_code = postal_code[:len(postal_code)-1]
+        postal_code = postal_code[:len(postal_code) - 1]
         results = [trans for trans in transactions if trans.postal_code and trans.postal_code.startswith(postal_code)]
         return results
 
     @staticmethod
     def get_transactions_by_neighbor_address(transactions, address):
-        if address == "":
+        if not address or address == "":
             return []
         transaction = Transaction.objects.filter(address=address)[0]
         results = [trans for trans in transactions if is_neighbor(trans, transaction)]

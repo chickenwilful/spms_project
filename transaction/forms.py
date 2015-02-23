@@ -25,4 +25,3 @@ class ChartFilterForm(forms.Form):
                                        initial=[Chart.ITSELF])
     list = forms.ChoiceField(label="List", required=False, choices=Chart.LIST_CHOICES,
                              initial=Chart.ITSELF)
-
