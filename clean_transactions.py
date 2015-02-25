@@ -20,5 +20,14 @@ def process():
             print "{0} - {1} - {2}".format(trans.name, trans.address, trans.postal_code)
 
 
+def temp():
+    transactions = Transaction.objects.filter(type='c', postal_code__isnull=False)
+    for trans in transactions:
+        trans.latitude = None
+        trans.save()
+    print "done"
+
+
 if __name__ == "__main__":
-    process()
+    # process()
+    temp()

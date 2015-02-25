@@ -10,10 +10,14 @@ logger = logging.getLogger(__name__)
 
 
 def map(request, template='map.html'):
+    # transactions = Transaction.objects.filter(latitude__isnull=True)
+    # address_list = set([trans.address for trans in transactions])
+    # return render(request, template, {'count': len(address_list),
+    #                                   'address_list': address_list})
     transactions = Transaction.objects.filter(latitude__isnull=True)
-    address_list = set([trans.address for trans in transactions])
-    return render(request, template, {'count': len(address_list),
-                                      'address_list': address_list})
+    postalcodes = set([trans.postal_code for trans in transactions])
+    return render(request, "map2.html", {'count': len(postalcodes),
+                                         'postal_codes': postalcodes})
 
 
 def coordinate(request):
@@ -21,11 +25,12 @@ def coordinate(request):
     View to get coordinate of all transactions' addresses
     """
     if request.GET:
-        addr, lat, lng = request.GET['addr'], request.GET['lat'], request.GET['lng']
-        transactions = Transaction.objects.filter(address=addr)
+        postal_code, lat, lng = request.GET['postalcode'], request.GET['lat'], request.GET['lng']
+        transactions = Transaction.objects.filter(postal_code=postal_code)
         for trans in transactions:
             trans.latitude, trans.longitude = lat, lng
             trans.save()
+        print len(transactions)
         return HttpResponse("Transactions updated!")
     else:
         return HttpResponse("Not GET request")
