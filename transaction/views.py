@@ -37,6 +37,8 @@ def transaction_list(request, template="transaction_list.html"):
     """
     MAX_LENGTH = 50
 
+    logger.debug("transaction list debug")
+
     if not request.POST or request.GET:
         transactions = Transaction.objects.all()
 
@@ -70,7 +72,8 @@ def transaction_list(request, template="transaction_list.html"):
         if postal_code == "":
             postal_code = Transaction.get_postal_code(name=name, address=address)
 
-        print "name = {0}, address = {1}, postal_code = {2}".format(name, address, postal_code)
+        print("name = {0}, address = {1}, postal_code = {2}".format(name, address, postal_code))
+
         chart = {}
         # Handle chart series
         chart_series = request.POST.getlist('series')
@@ -88,8 +91,7 @@ def transaction_list(request, template="transaction_list.html"):
         elif display_list == Chart.NEIGHBOR_POSTALCODE:
             transactions = Chart.get_transactions_by_neighbor_postal_code(transactions, postal_code)
         else:
-            transactions = Chart.get_transactions_by_neighbor_address(transactions, address)
-            transactions.extend(Chart.get_transactions_by_address(transactions))
+            transactions = Chart.get_transactions_by_neighbor_address(transactions, address, include=True)
 
         result_count = len(transactions)
         if len(transactions) > MAX_LENGTH:

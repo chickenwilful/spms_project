@@ -62,14 +62,17 @@ class Chart(object):
         return chart
 
     @staticmethod
-    def get_transactions_by_address(transactions=None, address=""):
-        if transactions is None:
-            transactions = Transaction.objects.all()
+    def chart_by_neighbor_postal_code(transactions=None, postal_code=None):
+        transactions = Chart.get_transactions_by_neighbor_postal_code(transactions, postal_code)
+        return Chart.chart_retrieve(transactions)
+
+    @staticmethod
+    def get_transactions_by_address(transactions=Transaction.objects.all(), address=""):
         transactions = [trans for trans in transactions if trans.address == address]
         return transactions
 
     @staticmethod
-    def get_transactions_by_neighbor_postal_code(transactions, postal_code):
+    def get_transactions_by_neighbor_postal_code(transactions=Transaction.objects.all(), postal_code=None):
         if not postal_code or postal_code == "":
             return []
         postal_code = postal_code[:len(postal_code) - 1]
@@ -77,24 +80,19 @@ class Chart(object):
         return results
 
     @staticmethod
-    def get_transactions_by_neighbor_address(transactions, address):
+    def get_transactions_by_neighbor_address(transactions=Transaction.objects.all(), address=None, include=False):
         if not address or address == "":
             return []
-        transaction = Transaction.objects.filter(address=address)[0]
-        results = [trans for trans in transactions if is_neighbor(trans, transaction)]
+        transaction_list = transactions.filter(address=address)
+        if len(transaction_list) == 0:
+            return []
+        transaction = transaction_list[0]
+        if not include:
+            results = [trans for trans in transactions if Transaction.is_neighbor(trans, transaction)]
+        else:
+            results = [trans for trans in transactions if Transaction.is_neighbor(trans, transaction)
+                       or Transaction.is_same_property(trans, transaction)]
         return results
-
-
-    @staticmethod
-    def chart_by_neighbor_postal_code(transactions, postal_code):
-        transactions = Chart.get_transactions_by_neighbor_postal_code(transactions, postal_code)
-        return Chart.chart_retrieve(transactions)
-
-
-def is_neighbor(trans1, trans2):
-    return (trans1.address != trans2.address) \
-        and (abs(trans1.latitude - trans2.latitude) <= 0.005) \
-        and (abs(trans1.longitude - trans2.longitude) <= 0.005)
 
 
 def avg_price(price_by_addr, price_by_neighbor_addr):
@@ -102,6 +100,3 @@ def avg_price(price_by_addr, price_by_neighbor_addr):
             return price_by_neighbor_addr
         else:
             return 0.8 * price_by_addr + 0.2 * price_by_neighbor_addr
-
-
-

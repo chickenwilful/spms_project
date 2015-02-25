@@ -97,3 +97,13 @@ class Transaction(models.Model):
             postal_code = transactions[0].postal_code
         return postal_code
 
+    @staticmethod
+    def is_same_property(trans1, trans2):
+        return trans1.address == trans2.address and (trans1.postal_code == trans2.postal_code or not trans1.postal_code or not trans2.postal_code)
+
+    @staticmethod
+    def is_neighbor(trans1, trans2):
+        return (not Transaction.is_same_property(trans1, trans2)) \
+            and (abs(trans1.latitude - trans2.latitude) <= 0.005) \
+            and (abs(trans1.longitude - trans2.longitude) <= 0.005)
+

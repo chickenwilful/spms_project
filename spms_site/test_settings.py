@@ -1,6 +1,5 @@
-import os
-import sys
-from spms_site.settings import DATABASES, BASE_DIR
+from spms_site.settings import *
+
 
 if 'test' in sys.argv:
     DATABASES['default'] = {

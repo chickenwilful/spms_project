@@ -48,8 +48,8 @@
             <td style="text-align: center">{{transaction.room_count|refine}}</td>
             <td style="text-align: center">{{transaction|area_sqft_range}}</td>
             <td style="text-align: center">{{transaction.monthly_rent}}</td>
-            <td style="text-align: center">{{transaction.latitude|floatformat:3}}</td>
-            <td style="text-align: center">{{transaction.longitude|floatformat:3}}</td>
+            <td style="text-align: center">{{transaction.latitude|floatformat:4}}</td>
+            <td style="text-align: center">{{transaction.longitude|floatformat:4}}</td>
         </tr>
     {% endfor %}
     </table>
