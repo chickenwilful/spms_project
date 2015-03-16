@@ -41,6 +41,8 @@ INSTALLED_APPS = (
     'transaction',
     'bootstrap3',
     'crossdomainxhr',
+    'agents',
+    'lxml',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -74,7 +76,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Singapore'
 
 USE_I18N = True
 
@@ -133,7 +135,11 @@ LOGGING = {
     'loggers': {
         'transaction': {
             'handlers': ['console'],
-            'level': 'INFO',
+            'level': 'DEBUG',
+        },
+        'agents': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
         },
         'py.warnings': {
             'handlers': ['console'],
@@ -144,6 +150,7 @@ LOGGING = {
 if 'test' in sys.argv:
     DATABASES['default'] = {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'dbwithsalepersons.sqlite3'),
     }
 
+DEFAULT_CHARSET = 'utf-8'

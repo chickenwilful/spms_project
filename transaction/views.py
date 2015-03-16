@@ -42,8 +42,6 @@ def transaction_list(request, template="transaction_list.html"):
     """
     MAX_LENGTH = 50
 
-    logger.debug("transaction list debug")
-
     if not request.POST or request.GET:
         transactions = Transaction.objects.all()
 

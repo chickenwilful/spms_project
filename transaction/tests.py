@@ -43,9 +43,6 @@ class TransactionTest(TestCase):
 
     # class ChartTest(TestCase):
 
-    def test(self):
-        pass
-
     # Test display
     def test_get_transactions_by_neighbor_postal_code(self):
         transactions = Chart.get_transactions_by_neighbor_postal_code(postal_code="090010")
@@ -58,7 +55,7 @@ class TransactionTest(TestCase):
 
         # Test include=True
         transactions = Chart.get_transactions_by_neighbor_address(address=address, include=True)
-        self.assertEquals(len(transactions), 628)
+        self.assertEquals(len(transactions), 216)
 
         # Test include=False
         transaction = Transaction.objects.filter(address=address)[0]

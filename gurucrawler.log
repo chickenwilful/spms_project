@@ -1,0 +1,159 @@
+[14/Mar/2015 22:20:31] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jenny-hoo-53117
+[14/Mar/2015 22:20:32] ERROR [agents_crawler:112] list index out of range
+[14/Mar/2015 22:20:32] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jenny-liu-290634
+[14/Mar/2015 22:20:33] ERROR [agents_crawler:112] list index out of range
+[14/Mar/2015 22:20:33] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jessica-lay-yuen-goh-206144
+[14/Mar/2015 22:20:33] ERROR [agents_crawler:112] list index out of range
+[14/Mar/2015 22:20:34] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jimmy-ng-172280
+[14/Mar/2015 22:20:34] ERROR [agents_crawler:117] 'NoneType' object has no attribute 'strip'
+[14/Mar/2015 22:20:35] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jimmy-tan-167488
+[14/Mar/2015 22:20:35] ERROR [agents_crawler:112] list index out of range
+[14/Mar/2015 22:20:36] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jinni-lew-288595
+[14/Mar/2015 22:20:37] ERROR [agents_crawler:112] list index out of range
+[14/Mar/2015 22:20:38] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/joe-tng-4976
+[14/Mar/2015 22:20:38] ERROR [agents_crawler:112] list index out of range
+[14/Mar/2015 22:20:39] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/josh-ng-102143
+[14/Mar/2015 22:20:39] ERROR [agents_crawler:112] list index out of range
+[14/Mar/2015 22:20:39] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/joyce-chua-320254
+[14/Mar/2015 22:24:28] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jenny-hoo-53117
+[14/Mar/2015 22:24:29] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:24:29] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jenny-liu-290634
+[14/Mar/2015 22:24:33] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:24:34] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jessica-lay-yuen-goh-206144
+[14/Mar/2015 22:24:34] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:24:34] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jimmy-ng-172280
+[14/Mar/2015 22:24:35] ERROR [agents_crawler:120] 'NoneType' object has no attribute 'strip'
+[14/Mar/2015 22:24:35] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jimmy-tan-167488
+[14/Mar/2015 22:24:36] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:24:36] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jinni-lew-288595
+[14/Mar/2015 22:24:37] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:24:37] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/joe-tng-4976
+[14/Mar/2015 22:24:37] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:24:38] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/josh-ng-102143
+[14/Mar/2015 22:24:42] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:24:42] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/joyce-chua-320254
+[14/Mar/2015 22:24:43] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:24:43] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/joyce-chua-320255
+[14/Mar/2015 22:24:45] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:24:45] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/just-office-254955
+[14/Mar/2015 22:24:47] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:24:47] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/kara-ramos-254789
+[14/Mar/2015 22:24:49] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:25:13] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jenny-hoo-53117
+[14/Mar/2015 22:25:14] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:25:14] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jenny-liu-290634
+[14/Mar/2015 22:25:21] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:25:22] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jessica-lay-yuen-goh-206144
+[14/Mar/2015 22:25:22] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:25:23] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jimmy-ng-172280
+[14/Mar/2015 22:25:23] ERROR [agents_crawler:120] 'NoneType' object has no attribute 'strip'
+[14/Mar/2015 22:25:24] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jimmy-tan-167488
+[14/Mar/2015 22:25:28] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:25:28] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jinni-lew-288595
+[14/Mar/2015 22:25:29] ERROR [agents_crawler:115] list index out of range
+[14/Mar/2015 22:27:47] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jenny-hoo-53117
+[14/Mar/2015 22:27:48] INFO [agents_crawler:112] Jenny Hoo, +6597297237, DENNIS WEE REALTY PTE LTD, L3005183F, None, None
+[14/Mar/2015 22:27:48] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jenny-liu-290634
+[14/Mar/2015 22:27:49] INFO [agents_crawler:112] Bukit Sembawang Estates Limited, +6568900333, None, None, None, None
+[14/Mar/2015 22:27:49] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jessica-lay-yuen-goh-206144
+[14/Mar/2015 22:27:50] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:27:50] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jimmy-ng-172280
+[14/Mar/2015 22:27:50] ERROR [agents_crawler:126] 'NoneType' object has no attribute 'strip'
+[14/Mar/2015 22:27:51] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jimmy-tan-167488
+[14/Mar/2015 22:27:52] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:27:52] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jinni-lew-288595
+[14/Mar/2015 22:27:52] INFO [agents_crawler:112] Jinni Lew, +6590692924, All Property Media Pte Ltd, None, None, None
+[14/Mar/2015 22:27:53] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/joe-tng-4976
+[14/Mar/2015 22:27:53] INFO [agents_crawler:112] Joe Tng, +6594506667, ERA REALTY NETWORK PTE LTD, L3002382K, None, None
+[14/Mar/2015 22:27:54] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/josh-ng-102143
+[14/Mar/2015 22:27:54] INFO [agents_crawler:112] Josh Ng, +6591100211, None, None, None, None
+[14/Mar/2015 22:27:54] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/joyce-chua-320254
+[14/Mar/2015 22:27:55] INFO [agents_crawler:112] SH Cogent Logistics Pte Ltd, +656279 7310, None, None, None, None
+[14/Mar/2015 22:27:55] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/joyce-chua-320255
+[14/Mar/2015 22:27:56] INFO [agents_crawler:112] Cogent Land Capital Pte Ltd, +656463 4610, None, None, None, None
+[14/Mar/2015 22:27:56] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/just-office-254955
+[14/Mar/2015 22:27:57] INFO [agents_crawler:112] JustOffice, +656317 8882, None, None, None, None
+[14/Mar/2015 22:27:57] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/kara-ramos-254789
+[14/Mar/2015 22:27:58] INFO [agents_crawler:112] Regus Management Singapore Pte Ltd, +6562484889, None, None, None, None
+[14/Mar/2015 22:27:58] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/kenneth-cheok-298149
+[14/Mar/2015 22:27:59] INFO [agents_crawler:112] Kenneth Cheok, +6500998822, All Property Media Pte Ltd, None, None, None
+[14/Mar/2015 22:27:59] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/kynan-soh-302408
+[14/Mar/2015 22:27:59] INFO [agents_crawler:112] Kynan Soh, +6581008234, All Property Media Pte Ltd, None, None, None
+[14/Mar/2015 22:28:00] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/lai-chiew-fun-millie-76341
+[14/Mar/2015 22:28:00] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:01] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/leong-boon-hoe-22960
+[14/Mar/2015 22:28:01] INFO [agents_crawler:112] Leong Boon Hoe, +6568548688, CBRE Realty Associates Pte Ltd, L3010008E, None, None
+[14/Mar/2015 22:28:02] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/lhn-group-pte-ltd-106784
+[14/Mar/2015 22:28:02] INFO [agents_crawler:112] LHN Group Pte Ltd, +6565789966, None, None, None, None
+[14/Mar/2015 22:28:03] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/mabel-tan-304232
+[14/Mar/2015 22:28:03] ERROR [agents_crawler:126] 'NoneType' object has no attribute 'strip'
+[14/Mar/2015 22:28:04] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/marcus-lee-24017
+[14/Mar/2015 22:28:04] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:05] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/mee-ying-chong-216178
+[14/Mar/2015 22:28:05] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:06] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/ng-christine-13404
+[14/Mar/2015 22:28:06] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:07] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/pending-pending-208318
+[14/Mar/2015 22:28:07] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:08] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/propnex-international-214408
+[14/Mar/2015 22:28:08] INFO [agents_crawler:112] PropNex International, +6565908894, None, None, None, None
+[14/Mar/2015 22:28:09] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/propnex-realty-pte-ltd-291080
+[14/Mar/2015 22:28:09] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:10] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/regence-investments-consultancy-pte-ltd--318637
+[14/Mar/2015 22:28:11] INFO [agents_crawler:112] Regence Investments Consultancy, +6590686243, None, None, None, None
+[14/Mar/2015 22:28:11] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/ryan-peh-11292
+[14/Mar/2015 22:28:11] INFO [agents_crawler:112] Ryan Peh, +6591142578, All Property Media Pte Ltd, None, None, None
+[14/Mar/2015 22:28:12] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/s-k-chong-121340
+[14/Mar/2015 22:28:12] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:13] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/sabana-real-estate-investment-management-pte-ltd-297974
+[14/Mar/2015 22:28:13] ERROR [agents_crawler:126] 'NoneType' object has no attribute 'encode'
+[14/Mar/2015 22:28:14] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/safekeep-pte-ltd-312095
+[14/Mar/2015 22:28:14] INFO [agents_crawler:112] Safekeep Pte Ltd, +6568442876, None, None, None, None
+[14/Mar/2015 22:28:15] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/sally-fong-131557
+[14/Mar/2015 22:28:15] INFO [agents_crawler:112] Sally Fong, +6597351229, Knight Frank Estate Mgmt Pte Ltd, L30009602I, R021895F, None
+[14/Mar/2015 22:28:16] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/samuel-goh-245954
+[14/Mar/2015 22:28:16] INFO [agents_crawler:112] Samuel Goh, +6597324375, All Property Media Pte Ltd, None, None, None
+[14/Mar/2015 22:28:17] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/shelley-test-219383
+[14/Mar/2015 22:28:17] ERROR [agents_crawler:126] 'NoneType' object has no attribute 'strip'
+[14/Mar/2015 22:28:17] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/si-yi-295464
+[14/Mar/2015 22:28:18] INFO [agents_crawler:112] Si Yi, +6589001111, All Property Media Pte Ltd, None, None, None
+[14/Mar/2015 22:28:18] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/sin-yee-jermine-lim-187986
+[14/Mar/2015 22:28:19] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:19] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/slp-international-property-consultants-pte-ltd-304115
+[14/Mar/2015 22:28:19] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:20] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/slp-international-property-consultants-pte-ltd-304116
+[14/Mar/2015 22:28:20] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:21] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/slp-international-property-consultants-pte-ltd-304117
+[14/Mar/2015 22:28:21] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:22] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/suet-leng-288594
+[14/Mar/2015 22:28:23] ERROR [agents_crawler:126] 'NoneType' object has no attribute 'strip'
+[14/Mar/2015 22:28:23] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/syn-yee-301455
+[14/Mar/2015 22:28:23] INFO [agents_crawler:112] Syn Yee, +6593270119, All Property Media Pte Ltd, None, None, None
+[14/Mar/2015 22:28:24] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/tan-wee-leong-212376
+[14/Mar/2015 22:28:28] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:29] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/test-agent-49878
+[14/Mar/2015 22:28:29] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:30] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/test-tes-218222
+[14/Mar/2015 22:28:30] ERROR [agents_crawler:126] 'NoneType' object has no attribute 'strip'
+[14/Mar/2015 22:28:30] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/the-executive-centre-140491
+[14/Mar/2015 22:28:31] INFO [agents_crawler:112] THE EXECUTIVE CENTRE, +656808 6288, None, None, None, None
+[14/Mar/2015 22:28:31] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/tommy-wong-288090
+[14/Mar/2015 22:28:32] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:32] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/vagen-teh-192688
+[14/Mar/2015 22:28:32] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:33] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/vin-lum-300542
+[14/Mar/2015 22:28:33] INFO [agents_crawler:112] Vin Lum, +6597827925, All Property Media Pte Ltd, None, None, None
+[14/Mar/2015 22:28:33] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/vincent-lim-288127
+[14/Mar/2015 22:28:34] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:28:34] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/yun-ru-joanne-chan-187900
+[14/Mar/2015 22:28:35] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:30:15] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jessica-lay-yuen-goh-206144
+[14/Mar/2015 22:30:16] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:30:17] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jimmy-ng-172280
+[14/Mar/2015 22:30:17] ERROR [agents_crawler:126] 'NoneType' object has no attribute 'strip'
+[14/Mar/2015 22:30:17] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/jimmy-tan-167488
+[14/Mar/2015 22:30:18] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:30:19] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/lai-chiew-fun-millie-76341
+[14/Mar/2015 22:30:19] ERROR [agents_crawler:121] list index out of range
+[14/Mar/2015 22:30:19] INFO [agents_crawler:89] get agent by url, url = http://www.propertyguru.com.sg/agent/mabel-tan-304232
+[14/Mar/2015 22:30:20] ERROR [agents_crawler:126] 'NoneType' object has no attribute 'strip'
