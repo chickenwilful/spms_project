@@ -23,12 +23,9 @@ console_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.addHandler(console_handler)
 
-from _elementtree import tostring
 import os
-import string
 import sys
 from lxml import html
-import time
 import csv
 
 
@@ -45,7 +42,7 @@ DOMAIN = "http://www.stproperty.sg"
 SEARCH_URL = "http://www.stproperty.sg/property-agent/page%d/size-50/sort-name-asc"
 AGENT_CSV_FILENAME = "agents_stproperty.csv"
 
-MIN_ID = 9700
+MIN_ID = 0
 NUM_PAGE = 460
 
 
@@ -88,9 +85,15 @@ def get_agent_by_url(url):
         cea = agent_section.cssselect('li p a')
         lic_number = cea[0].text.strip()
         reg_number = cea[1].text.strip()
-        estate_name = agent_section.cssselect('strong')[0].text.strip()
-        call_id = agent_section.xpath('//div[@title="Call Agent"]')[0].cssselect('a')[0].get('id')
-        phone_number = get_agent_phone_number(url, source_code.text.encode('utf-8'), call_id)
+        try:
+            estate_name = agent_section.cssselect('strong')[0].text.strip()
+        except AttributeError:
+            estate_name = None
+        try:
+            call_id = agent_section.xpath('//div[@title="Call Agent"]')[0].cssselect('a')[0].get('id')
+            phone_number = get_agent_phone_number(url, source_code.text.encode('utf-8'), call_id)
+        except IndexError:
+            phone_number = None
         agent = AgentStProperty(name=name, estate_name=estate_name, phone_number=phone_number, lic_number=lic_number, reg_number=reg_number)
         logger.info(agent)
         return agent
@@ -127,18 +130,19 @@ def get_all_agents_url():
 
 
 def get_agent_phone_number(agent_url, source_code, call_id):
-    pattern = re.escape('$("#%s").html("' % call_id) + r'\+65\s(\d{4})\s(\d{4})'
+    pattern = re.escape('$("#%s").html("' % call_id) + r'.*(\d{4})\s(\d{4})'
     try:
         regex = re.search(pattern, source_code, re.I)
         phone_number = regex.group(1) + regex.group(2)
         return phone_number
-    except IndexError:
+    except ValueError:
         logger.error("can not get phone number for agent url = %s" %agent_url)
         return None
 
 
 def get_all_agents_info():
-    for agent in AgentStProperty.objects.filter(id__gte=MIN_ID):
+    agents = AgentStProperty.objects.filter(id__gte=MIN_ID)
+    for agent in agents:
         if not agent.name:
             temp = get_agent_by_url(DOMAIN + agent.url)
             if temp:
@@ -149,7 +153,6 @@ def get_all_agents_info():
                 agent.reg_number = temp.reg_number
                 agent.save()
                 print agent.id
-        time.sleep(0.5)
 
 
 def write_agents_csv(filename):
@@ -159,17 +162,13 @@ def write_agents_csv(filename):
         writer.writerow(field_names)
         agents = AgentStProperty.objects.filter(name__isnull=False)
         for agent in agents:
+            agent.name = agent.name.encode('ascii', 'ignore').decode('ascii')
             if agent.estate_name:
                 agent.estate_name = agent.estate_name.encode('ascii', 'ignore').decode('ascii')
-            while agent.lic_number and agent.lic_number[0] != 'L':
-                agent.lic_number = agent.lic_number[1:]
-                agent.save()
-            # print agent.url
-            # print agent.name, agent.estate_name, agent.lic_number, agent.reg_number
-            writer.writerow([agent.name, agent.estate_name, str(agent.phone_number)[3:], agent.lic_number, agent.reg_number])
+            writer.writerow([agent.name, agent.estate_name, agent.phone_number, agent.lic_number, agent.reg_number])
 
 
 if __name__ == "__main__":
     # get_all_agents_url()
-    get_all_agents_info()
-    # get_agent_by_url("http://www.stproperty.sg/property-agent/aaa.-aaron-goh/tab-details/user/329420")
+    # get_all_agents_info()
+    write_agents_csv(AGENT_CSV_FILENAME)

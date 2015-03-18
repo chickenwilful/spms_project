@@ -28,7 +28,6 @@ import os
 import string
 import sys
 from lxml import html
-import time
 import csv
 
 
@@ -43,9 +42,8 @@ from agents.models import AgentIProperty
 
 DOMAIN = "http://www.stproperty.sg"
 SEARCH_URL = "http://www.iproperty.com.sg/realestate/findanagent.aspx?ty=al&ak=%c&rk=&p=%d&s=%d"
-AGENT_CSV_FILENAME = "agents_stproperty.csv"
+AGENT_CSV_FILENAME = "agents_iproperty.csv"
 
-MIN_ID = 0
 RESULT_PER_PAGE = 100
 
 
@@ -64,24 +62,27 @@ def get_phone_number(html):
 
 def get_agent_by_html(html):
     # print tostring(html)
-    name = html.cssselect('a')[0].get('title')
-    agent_url = html.cssselect('a')[0].get('href')
-    estate_name = html.cssselect('a')
-    estate_name = estate_name[len(estate_name)-1].get('title')
     try:
-        reg_number = re.search(re.escape(r'CEA Registration Number :') + '\s(.{8})', tostring(html), re.I).group(1)
-    except AttributeError:
-        reg_number = None
-    try:
-        lic_number = re.search(re.escape(r'Agency Licence Number :') + '\s(.{9})', tostring(html), re.I).group(1)
-    except AttributeError:
-        lic_number = None
-    phone_number = html.cssselect('span a')
-    if phone_number:
-        phone_number = get_phone_number(phone_number[0])
-    agent = AgentIProperty(name=name, phone_number=phone_number, estate_name=estate_name, reg_number=reg_number, lic_number=lic_number, url=agent_url)
-    print agent
-    return agent
+        name = html.cssselect('a')[0].get('title').encode('ascii', 'ignore').decode('ascii')
+        agent_url = html.cssselect('a')[0].get('href')
+        estate_name = html.cssselect('a')
+        estate_name = estate_name[len(estate_name)-1].get('title')
+        try:
+            reg_number = re.search(re.escape(r'CEA Registration Number :') + '\s(.{8})', tostring(html), re.I).group(1)
+        except AttributeError:
+            reg_number = None
+        try:
+            lic_number = re.search(re.escape(r'Agency Licence Number :') + '\s(.{9})', tostring(html), re.I).group(1)
+        except AttributeError:
+            lic_number = None
+        phone_number = html.cssselect('span a')
+        if phone_number:
+            phone_number = get_phone_number(phone_number[0])
+        agent = AgentIProperty(name=name, phone_number=phone_number, estate_name=estate_name, reg_number=reg_number, lic_number=lic_number, url=agent_url)
+        # print agent
+        return agent
+    except IndexError:
+        return None
 
 
 def get_agents_by_url(url):
@@ -90,11 +91,12 @@ def get_agents_by_url(url):
     try:
         response = get_page(url)
         tree = html.fromstring(response.text)
-        tables = tree.cssselect('div.SGmiddleColsub2 table table td.morelistingtext')[::2]
+        tables = tree.cssselect('div.SGmiddleColsub2 table table td.morelistingtext')
         for table in tables:
             agent = get_agent_by_html(table)
-            agents.append(agent)
-        # print agents
+            if agent:
+                agent.save()
+                agents.append(agent)
         return agents
     except requests.exceptions.HTTPError as e:
         logger.error("HTTP Error: " + str(e))
@@ -109,6 +111,7 @@ def get_num_page(first_letter):
     num_page = (int(list[0]) - 1) / RESULT_PER_PAGE + 1
     logger.info("get num page, first_letter=%c --> %d" % (first_letter, num_page))
     return num_page
+    # return int(list[0])
 
 
 def write_agents_csv(filename):
@@ -118,14 +121,7 @@ def write_agents_csv(filename):
         writer.writerow(field_names)
         agents = AgentIProperty.objects.filter(name__isnull=False)
         for agent in agents:
-            if agent.estate_name:
-                agent.estate_name = agent.estate_name.encode('ascii', 'ignore').decode('ascii')
-            while agent.lic_number and agent.lic_number[0] != 'L':
-                agent.lic_number = agent.lic_number[1:]
-                agent.save()
-            # print agent.url
-            # print agent.name, agent.estate_name, agent.lic_number, agent.reg_number
-            writer.writerow([agent.name, agent.estate_name, str(agent.phone_number)[3:], agent.lic_number, agent.reg_number])
+            writer.writerow([agent.name, agent.estate_name, agent.phone_number, agent.lic_number, agent.reg_number])
 
 
 def get_all_agent_info():
@@ -133,8 +129,10 @@ def get_all_agent_info():
         num_page = get_num_page(first_letter)
         for page in range(1, num_page + 1):
             url = SEARCH_URL % (first_letter, page, RESULT_PER_PAGE)
-            get_agents_by_url(url)
+            agents = get_agents_by_url(url)
 
 
 if __name__ == "__main__":
-    get_all_agent_info()
+    # get_all_agent_info()
+    # print (len(AgentIProperty.objects.all()))
+    write_agents_csv(AGENT_CSV_FILENAME)

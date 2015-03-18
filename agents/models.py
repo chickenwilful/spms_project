@@ -10,7 +10,7 @@ class Agent(models.Model):
     url = models.CharField(max_length=200, null=True)
 
     def __unicode__(self):
-        return "{0}, {1}, {2}, {3}, {4}, {5}".format(self.name, self.phone_number, self.estate_name, self.lic_number, self.reg_number, self.url)
+        return "{0}, {1}, {2}, {3}, {4}".format(self.name, self.phone_number, self.estate_name, self.lic_number, self.reg_number)
 
 
 class AgentIProperty(models.Model):
@@ -22,7 +22,7 @@ class AgentIProperty(models.Model):
     url = models.CharField(max_length=200, null=True)
 
     def __unicode__(self):
-        return "{0}, {1}, {2}, {3}, {4}, {5}".format(self.name, self.phone_number, self.estate_name, self.lic_number, self.reg_number, self.url)
+        return "{0}, {1}, {2}, {3}, {4}".format(self.name, self.phone_number, self.estate_name, self.lic_number, self.reg_number)
 
 
 class AgentStProperty(models.Model):
@@ -34,7 +34,7 @@ class AgentStProperty(models.Model):
     url = models.CharField(max_length=200, null=True)
 
     def __unicode__(self):
-        return "{0}, {1}, {2}, {3}, {4}, {5}".format(self.name, self.phone_number, self.estate_name, self.lic_number, self.reg_number, self.url)
+        return "{0}, {1}, {2}, {3}, {4}".format(self.name, self.phone_number, self.estate_name, self.lic_number, self.reg_number)
 
 
 class BadNum(models.Model):
