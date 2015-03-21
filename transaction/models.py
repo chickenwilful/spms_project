@@ -1,8 +1,5 @@
 from django.db import models
 
-# Create your models here.
-from transaction.templatetags.transaction_template_tags import camelcase
-
 
 HOUSE_TYPE = (
     ('c', 'Condo'),
@@ -98,6 +95,15 @@ class Transaction(models.Model):
         return postal_code
 
     @staticmethod
+    def get_transaction_by_address(address=None):
+        transactions = Transaction.objects.filter(address=address)
+        if transactions:
+            return transactions[0]
+        else:
+            return None
+
+
+    @staticmethod
     def is_same_property(trans1, trans2):
         return trans1.address == trans2.address and (trans1.postal_code == trans2.postal_code or not trans1.postal_code or not trans2.postal_code)
 
@@ -106,4 +112,6 @@ class Transaction(models.Model):
         return (not Transaction.is_same_property(trans1, trans2)) \
             and (abs(trans1.latitude - trans2.latitude) <= 0.005) \
             and (abs(trans1.longitude - trans2.longitude) <= 0.005)
+
+
 
